@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+</head>
+
+<body>
+  <header>
+    
+  <nav>
+    <a href="{{ url_for('home') }}"> Return To Home</a>
+  </nav>  
+  
+  <h1>User Registration</h1>
+  
+
+  <hr/>
+  </header>
+
+  <main>
+  <h2>
+    Name:
+  </h2>
+
+    <form><input type="text" value="Enter Your Name"/></form>
+
+  <h2>
+    Email:
+  </h2>
+
+    <form><input type="email" value ="Enter Your Email"/></form>
+
+  <h2>
+    Username:
+  </h2>
+
+    <form><input type="text" value ="Enter Your Username"/></form>
+
+  <h2>
+    Password:
+  </h2>
+
+    <form><input type="password"/></form>
+  
+    <form><input type="submit" value="Register"/></form>
+  
+  </main>
+</body>
+</html>
