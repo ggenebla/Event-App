@@ -23,6 +23,10 @@ def login():
 def new_event():
     return render_template('newEvent.html')
 
+@app.route('/delete')
+def delete_event():
+    return render_template('delete.html')
+
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
 # routes for the pages
