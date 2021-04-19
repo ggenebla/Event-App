@@ -19,6 +19,10 @@ def login():
     return render_template('userLog.html')
 
 
+@app.route('/new')
+def new_event():
+    return render_template('newEvent.html')
+
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
 # routes for the pages
