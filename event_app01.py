@@ -23,9 +23,27 @@ def login():
 def new_event():
     return render_template('newEvent.html')
 
+
 @app.route('/delete')
 def delete_event():
     return render_template('delete.html')
+
+
+@app.route('/event/edit/<event_id>')
+def edit_event():
+
+    return render_template('edit.html')
+
+
+@app.route('event/list/<event_id>')
+def list_event():
+    return render_template('list.html')
+
+
+@app.route('event/list/<event_id>')
+def view_event():
+    return render_template('view.html')
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
