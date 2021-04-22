@@ -20,18 +20,17 @@
 <hr/>
 </header>
 
-
 <body>
   <main>
     <h1>Menu:</h1>
     <nav>
-      <a href="/newEvent.html"> Create New Event</a>
-      <a href="/editEvent.html"> Edit an Event</a>
-      <a href="/delete.html"> Delete an Event</a>
-      <a href="/rsvp.html"> RSVP for an Event</a>
-      <a href="/rate.html"> Rate an Event</a>
-      <a href="/searchEvent.html"> Search for an Event</a>
-      <a href="/viewEvent.html"> View an Event</a>
+      <a href="{{ url_for('create_event') }}"> Create New Event</a><br><br>
+      <a href="{{ url_for('edit_event') }}"> Edit an Event</a><br><br>
+      <a href="{{ url_for('delete_event') }}"> Delete an Event</a><br><br>
+      <a href="{{ url_for('rsvp') }}"> RSVP for an Event</a><br><br>
+      <a href="{{ url_for('rate') }}"> Rate an Event</a><br><br>
+      <a href="{{ url_for('search_event') }}"> Search for an Event</a><br><br>
+      <a href="{{ url_for('view_event') }}"> View an Event</a><br><br>
     </nav>
   </main>  
 </body>
