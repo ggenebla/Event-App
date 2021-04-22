@@ -6,33 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Login</title>
 </head>
+
 <body>
   <header>
-    
     <nav>
       <a href="{{ url_for('home') }}"> Return To Home</a>
     </nav>
-
-    <h1>User Login</h1>
-    
+  <h1>User Login</h1>
   <hr/>
   </header>
 
   <main>
-    <h2>
-      Username:
-    </h2>
-  
-      <form><input type="text" value ="Enter Your Username"/></form>
-  
-    <h2>
-      Password:
-    </h2>
-  
-      <form><input type="password"/></form>
-    
-      <form><input type="submit" value="Login"/></form>
-
+    <form action="userLog" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password"><br><br> 
+      <input type="submit" value="Login">
+      
+      {{ form.submit }}
+    </form>
   </main>
   
 </body>
