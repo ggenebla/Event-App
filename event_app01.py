@@ -58,22 +58,29 @@ def register():
     return render_template('userReg.html', form=form)
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     login_form = LoginForm()
-
+    # validate_on_submit only validates using POST
     if login_form.validate_on_submit():
-        the_user = db.session.query(User).filter_by(email=request.form['email'].one())
-
+        # we know user exists. We can use one()
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        # user exists check password entered matches stored password
         if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
+            # password match add user info to session
             session['user'] = the_user.first_name
             session['user_id'] = the_user.id
-            return render_template('home.html')
+            # render view
+            return redirect(url_for('home'))
 
-        login_form.password.errors = ["Incorrect username or password"]
+        # password check failed
+        # set error message to alert user
+        login_form.password.errors = ["Incorrect username or password."]
         return render_template("userLog.html", form=login_form)
     else:
-        return render_template('userLog.html')
+        # form did not validate or GET request
+        return render_template("userLog.html", form=login_form)
+
 
 
 @app.route('/new')
