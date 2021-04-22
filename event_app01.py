@@ -1,7 +1,21 @@
 import os
 from flask import Flask, render_template
+from database import db
 
 app = Flask(__name__)
+
+# creates file called 'note_app_data.db' in root directory
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
+
+# disables signalling application every time change is made
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+
+# Bind SQLAlchemy db object to the app
+db.init_app(app)
+
+# setup models
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/home')
