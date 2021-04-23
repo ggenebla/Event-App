@@ -7,6 +7,7 @@ from flask import request
 from flask import redirect, url_for
 from database import db
 from models import User as User
+from models import Event as Event
 from forms import RegisterForm, LoginForm
 
 app = Flask(__name__)
@@ -82,7 +83,6 @@ def login():
         return render_template("userLog.html", form=login_form)
 
 
-
 @app.route('/new')
 def new_event():
     return render_template('newEvent.html')
@@ -107,28 +107,30 @@ def edit_event(event_id):
 
             return redirect(url_for('edit_event'))
         else:
-            my_event = db.session.query(Note).filter_by(id=event_id).one()
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
             return render_template("editEvent.html", event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
 
-@app.route('/event/list/<event_id>')
-def list_event():
-    if session.get('user'):
-         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-         form = CommentForm()
-         return render_template('list.html', event=my_event, user=session['user'], form=form)
-     else:
+@app.route('/event/list/<event_id>')
+def list_event(event_id):
+    if session.get('user'):
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+#         form = CommentForm()
+        return render_template('list.html', event=my_event, user=session['user'])
+    else:
         return redirect(url_for('login'))
 
-@app.route('/event/view/<event_id>')
-def view_event():
-    if session.get('event'):
-        my_note = db.session.query(Note).filter_by(id=note_id).one()
 
-        form = CommentForm()
-        return render_template('viewEvent.html', event=my_event, user=session['user'], form=form)
+@app.route('/event/view/<event_id>')
+def view_event(event_id):
+    if session.get('event'):
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+#        form = CommentForm()
+        return render_template('viewEvent.html', event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
 

@@ -8,7 +8,7 @@ class Event(db.Model):
     event_description = db.Column("event_description", db.String(100))
     date = db.Column("date", db.String(50))
     # creates a foreign key; referencing the id variable in the User class
-    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __init__(self, event_title, event_description, date, event_id):
         self.event_title = event_title
