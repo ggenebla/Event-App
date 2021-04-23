@@ -93,20 +93,45 @@ def delete_event():
     return render_template('delete.html')
 
 
-@app.route('/event/edit/<event_id>')
-def edit_event():
+@app.route('/event/edit/<event_id>', methods=['GET', 'POST'])
+def edit_event(event_id):
+    if session.get('user'):
+        if request.method == 'POST':
+            event_title = request.form['event_title']
+            event_description = request.form['event_description']
+            event = db.session.query(Event).filter_by(id=event_id).one()
+            event.event_title = event_title
+            event.event_description = event_description
+            db.session.add(event)
+            db.session.commit()
 
-    return render_template('edit.html')
-
+            return redirect(url_for('edit_event'))
+        else:
+            my_event = db.session.query(Note).filter_by(id=event_id).one()
+            return render_template("editEvent.html", event=my_event, user=session['user'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/event/list/<event_id>')
 def list_event():
-    return render_template('list.html')
+    if session.get('user'):
+         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
+         form = CommentForm()
+         return render_template('list.html', event=my_event, user=session['user'], form=form)
+     else:
+        return redirect(url_for('login'))
 
-@app.route('/event/list/<event_id>')
+@app.route('/event/view/<event_id>')
 def view_event():
-    return render_template('view.html')
+    if session.get('event'):
+        my_note = db.session.query(Note).filter_by(id=note_id).one()
+
+        form = CommentForm()
+        return render_template('viewEvent.html', event=my_event, user=session['user'], form=form)
+    else:
+        return redirect(url_for('login'))
+
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)

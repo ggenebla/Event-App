@@ -1,20 +1,20 @@
 from database import db
 import datetime
 
-# class Note(db.Model):
-#    id = db.Column("id", db.Integer, primary_key=True)
-#    title = db.Column("title", db.String(200))
-#    text = db.Column("text", db.String(100))
-#    date = db.Column("date", db.String(50))
-#    # creates a foreign key; referencing the id variable in the User class
-#   user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-#    comments = db.relationship("Comment", backref="note", cascade="all, delete-orphan", lazy=True)
 
-#    def __init__(self, title, text, date, user_id):
-#        self.title = title
-#        self.text = text
-#        self.date = date
-#        self.user_id = user_id
+class Event(db.Model):
+    id = db.Column("id", db.Integer, primary_key=True)
+    event_title = db.Column("event_title", db.String(200))
+    event_description = db.Column("event_description", db.String(100))
+    date = db.Column("date", db.String(50))
+    # creates a foreign key; referencing the id variable in the User class
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+
+    def __init__(self, event_title, event_description, date, event_id):
+        self.event_title = event_title
+        self.event_description = event_description
+        self.date = date
+        self.event_id = event_id
 
 
 class User(db.Model):
@@ -31,6 +31,3 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.registered_on = datetime.date.today()
-
-
-
