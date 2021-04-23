@@ -9,12 +9,15 @@
 <header>
 
   <h1>
-    Welcome To The Events Homepage!
+    Welcome {{user}} To The Events Homepage!
   </h1>
 
   <nav>
   <a href="{{ url_for('register') }}"> Register</a>
   <a href="{{ url_for('login') }}"> Login</a>
+  {% if user %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+  {% endif %}  
   </nav>
 
 <hr/>
@@ -23,16 +26,16 @@
 
 <body>
   <main>
-    <h1>Menu:</h1>
-    <nav>
-      <a href="/newEvent.html"> Create New Event</a>
-      <a href="/editEvent.html"> Edit an Event</a>
-      <a href="/delete.html"> Delete an Event</a>
-      <a href="/rsvp.html"> RSVP for an Event</a>
-      <a href="/rate.html"> Rate an Event</a>
-      <a href="/searchEvent.html"> Search for an Event</a>
-      <a href="/viewEvent.html"> View an Event</a>
-    </nav>
+    {% if user %}
+        <h1>Menu:</h1>
+        <nav>
+            <a href="{{ url_for('new_event') }}"> Create New Event</a>
+            <a href="/rsvp.html"> RSVP for an Event</a>
+            <a href="/rate.html"> Rate an Event</a>
+            <a href="/searchEvent.html"> Search for an Event</a>
+            <a href="{{ url_for('list_events') }}"> List My Events</a>
+        </nav>
+    {% endif %}  
   </main>  
 </body>
 </html>

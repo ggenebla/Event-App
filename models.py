@@ -4,18 +4,21 @@ import datetime
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    event_title = db.Column("event_title", db.String(200))
-    event_description = db.Column("event_description", db.String(100))
+    title = db.Column("title", db.String(200))
+    location = db.Column("location", db.String(200))
+    description = db.Column("description", db.String(100))
     date = db.Column("date", db.String(50))
+    time = db.Column("time", db.String(50))
     # creates a foreign key; referencing the id variable in the User class
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self, event_title, event_description, date, rsvp, event_id):
-        self.event_title = event_title
-        self.event_description = event_description
+    def __init__(self, title, location, description, date, time, user_id):
+        self.title = title
+        self.location = location
+        self.description = description
         self.date = date
-        self.rsvp = rsvp
-        self.event_id = event_id
+        self.time = time
+        self.user_id = user_id
 
 
 class User(db.Model):
@@ -25,6 +28,7 @@ class User(db.Model):
     email = db.Column("email", db.String(100))
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    events = db.relationship("Event", backref="User", lazy=True)
 
     def __init__(self, first_name, last_name, email, password):
         self.first_name = first_name

@@ -1,62 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1894.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px 'Helvetica Neue'; color: #000000; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #000000; -webkit-text-stroke: #000000}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #000000; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-  </style>
-</head>
-<body>
-<p class="p1"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p2"><span class="s1">&lt;html lang="en"&gt;</span></p>
-<p class="p2"><span class="s1">&lt;head&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Edit Event&lt;/title&gt;</span></p>
-<p class="p2"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p2"><span class="s1">&lt;nav&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;a href="{{ url_for('home') }}"&gt; Return To Home&lt;/a&gt;</span></p>
-<p class="p2"><span class="s1">&lt;/nav&gt;</span></p>
-<p class="p2"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1">&lt;header&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Edit Event&lt;/h1&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;hr/&gt;</span></p>
-<p class="p2"><span class="s1">&lt;/header&gt;</span></p>
-<p class="p2"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;main&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Name:&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="text" value =“ex. Fall Formal”/&gt;&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Location:&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="text" value =“ex. 1234 Main St“/&gt;&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Description:&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="text" value =“ex. Black Tie Attire“/&gt;&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Date:&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="date"/&gt;&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Time:&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="time"/&gt;&lt;/form&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span></span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form&gt;&lt;input type="submit" value=“Finish”&gt;</span></p>
-<p class="p2"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1"><br>
-</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</span></p>
-<p class="p2"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p2"><span class="s1">&lt;/html&gt;</span></p>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Event</title>   
+    </head>
+    <body>
+       <nav>
+          <a href="{{ url_for('home')}}">Home</a>||
+          <a href="{{ url_for('list_events')}}">My Events</a>||
+          <a href="{{ url_for('new_event')}}"> Add Event</a>||
+          <a href="{{ url_for('logout') }}">Logout</a>
+
+       </nav>
+
+        <h1>Edit Event</h1>
+        {% if event %}
+            <form action="{{ url_for('edit_event', event_id=event.id) }}" method="post">
+        {% else %}
+        <form action="new" method="post">
+        {% endif %}
+            <p><label>Title </label></p>
+            <p><input type="text" name="title" value="{% if event %}{{event.title}} {% endif %}"/></p>
+            <p><label>Location </label></p>
+            <p><input type="text" name="location" value="{% if event %}{{event.location}} {% endif %}"></p> 
+            <p><label for="description">Description:</label></p>
+            <p><input type="text" name="description" value="{% if event %}{{event.description}} {% endif %}"></p>
+            <p><label for="date">Date:</label></p>
+            <p><input type="date"  name="date" value="{% if event %}{{event.date}} {% endif %}"></p>
+            <p><label for="time">Time:</label></p>
+            <p><input type="time" name="time" value="{% if event %}{{event.time}} {% endif %}"></p>
+            <p>
+                {% if event %}
+                    <input type="submit" value="Update Event"/>
+                {% else %}
+                    <input type="submit" value="Create Event"/>
+                {% endif %}
+            </p>
+        </form>
+    </body>
 </html>
