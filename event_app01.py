@@ -82,7 +82,6 @@ def login():
         # form did not validate or GET request
         return render_template("userLog.html", form=login_form)
 
-
 @app.route('/new', methods=['POST', 'GET'])
 def new_event():
     if request.method == 'POST':
