@@ -10,10 +10,11 @@ class Event(db.Model):
     # creates a foreign key; referencing the id variable in the User class
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self, event_title, event_description, date, event_id):
+    def __init__(self, event_title, event_description, date, rsvp, event_id):
         self.event_title = event_title
         self.event_description = event_description
         self.date = date
+        self.rsvp = rsvp
         self.event_id = event_id
 
 
