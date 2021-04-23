@@ -83,14 +83,51 @@ def login():
         return render_template("userLog.html", form=login_form)
 
 
-@app.route('/new')
+@app.route('/new', methods=['POST', 'GET'])
 def new_event():
-    return render_template('newEvent.html')
-
+    if request.method == 'POST':
+        #get title data
+        event_title = request.form['title']
+        #get event data
+        event_description = request.form['text']
+        #create date stamp
+        from datetime import date
+        today = date.today()
+        #format date mm/dd/yyyy
+        today = today.strftime("%m-%d-%Y")
+        newEvent = Event(event_title, event_description, today)
+        db.session.add(newEvent)
+        db.session.commit()
+        return render_template('newEvent.html')
+    else:
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        return render_template('newEvent.html')
 
 @app.route('/delete')
 def delete_event():
     return render_template('delete.html')
+
+
+@app.route('/event/rsvp/<event_id>', methods=['GET', 'POST'])
+def rsvp_event(event_id):
+    if request.method == 'POST':
+        #get title data
+        event_title = request.form['title']
+        rsvp = request.form['rsvp']
+        #get event data
+        text = request.form['noteText']
+        event = db. session.query(Event).filter_by(id=event_id).one()
+        #update event data
+        event.title = event_title
+        event.rsvp = rsvp
+        #update note in DB
+        db.session.add(event)
+        db.session.commit()
+        return redirect(url_for('get_event'))
+    else:
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+    return render_template('rsvpEvent.html')
 
 
 @app.route('/event/edit/<event_id>', methods=['GET', 'POST'])
