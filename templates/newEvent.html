@@ -7,8 +7,7 @@
   <title>New Event</title>
 </head>
 <nav>
-   <a href="{{ url_for('home') }}"> Return To Home</a>
-   <a href="{{ url_for('home')}}">Home</a>||
+   <a href="{{ url_for('home') }}"> Return To Home</a>||
    <a href="{{ url_for('list_events')}}">My Events</a>||
    <a href="{{ url_for('new_event')}}"> Add Event</a>||
    <a href="{{ url_for('logout') }}">Logout</a>
@@ -32,6 +31,8 @@
       <input type="date" id="date" name="date"><br><br>
       <label for="time">Time:</label>
       <input type="time" id="time" name="time"><br><br>
+      <input type="checkbox" id="rsvp" name = "rsvp" value="Yes">
+      <label for="rsvp">RSVP</label>
       <input type="submit" value="Create Event">
     </form>
   </main>

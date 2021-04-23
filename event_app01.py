@@ -97,7 +97,8 @@ def new_event():
             # today = today.strftime("%m-%d-%y")
             time = request.form['time']
             # time = time.strftime("%H:%M")
-            new_record = Event(title, location, description, today, time,  session['user_id'])
+            event_rsvp = request.form['rsvp']
+            new_record = Event(title, location, description, today, time, event_rsvp, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -121,25 +122,34 @@ def delete_event(event_id):
 
 
 @app.route('/events/rsvp/<event_id>', methods=['GET', 'POST'])
-def rsvp_event(event_id):
-    if request.method == 'POST':
-        # get title data
-        event_title = request.form['title']
-        rsvp = request.form['rsvp']
-        # get event data
-        text = request.form['noteText']
-        event = db. session.query(Event).filter_by(id=event_id).one()
-        # update event data
-        event.title = event_title
-        event.rsvp = rsvp
-        # update note in DB
-        db.session.add(event)
-        db.session.commit()
-        return redirect(url_for('get_event'))
+def rsvp(event_id):
+    if session.get('user'):
+        if request.method == 'POST':
+            title = request.form['title']
+            location = request.form['location']
+            description = request.form['description']
+            today = request.form['date']
+            # today = today.strftime("%m-%d-%y")
+            time = request.form['time']
+            # time = time.strftime("%H:%M")
+            event = db.session.query(Event).filter_by(id=event_id).one()
+            event_rsvp = request.form['rsvp']
+            event.title = title
+            event.location = location
+            event.description = description
+            event.date = today
+            event.time = time
+            event.rsvp = event_rsvp
+            db.session.add(event)
+            db.session.commit()
+
+            return redirect(url_for('list_events'))
+        else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+        return render_template("editEvent.html", event=my_event, user=session['user'])
     else:
-        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
-        my_event = db.session.query(Event).filter_by(id=event_id).one()
-    return render_template('rsvpEvent.html')
+        return redirect(url_for('login'))
 
 
 @app.route('/events/edit/<event_id>', methods=['GET', 'POST'])
@@ -153,12 +163,14 @@ def edit_event(event_id):
             # today = today.strftime("%m-%d-%y")
             time = request.form['time']
             # time = time.strftime("%H:%M")
+            event_rsvp = request.form['rsvp']
             event = db.session.query(Event).filter_by(id=event_id).one()
             event.title = title
             event.location = location
             event.description = description
             event.date = today
             event.time = time
+            event.rsvp = event_rsvp
             db.session.add(event)
             db.session.commit()
 
