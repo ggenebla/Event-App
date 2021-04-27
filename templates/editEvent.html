@@ -31,7 +31,7 @@
             <p><input type="date"  name="date" value="{% if event %}{{event.date}} {% endif %}"></p>
             <p><label for="time">Time:</label></p>
             <p><input type="time" name="time" value="{% if event %}{{event.time}} {% endif %}"></p>
-            <p><input type="checkbox" id="rsvp" name = "rsvp" value="Yes"></p>
+            <p><input type="checkbox" id="rsvp" name = "rsvp" value="{%if event %}{{event.rsvp}} {% endif %}"></p>
             <label for="rsvp">RSVP</label>
             <p>
                 {% if event %}
