@@ -10,16 +10,18 @@ class Event(db.Model):
     date = db.Column("date", db.String(50))
     time = db.Column("time", db.String(50))
     rsvp = db.Column("rsvp", db.String(10))
+    rate = db.Column("rate", db.String(10))
     # creates a foreign key; referencing the id variable in the User class
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self, title, location, description, date, time, rsvp, user_id):
+    def __init__(self, title, location, description, date, time, rsvp, rate, user_id):
         self.title = title
         self.location = location
         self.description = description
         self.date = date
         self.time = time
         self.rsvp = rsvp
+        self.rate = rate
         self.user_id = user_id
 
 
@@ -38,3 +40,4 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.registered_on = datetime.date.today()
+
