@@ -98,7 +98,8 @@ def new_event():
             time = request.form['time']
             # time = time.strftime("%H:%M")
             event_rsvp = request.form['rsvp']
-            new_record = Event(title, location, description, today, time, event_rsvp, session['user_id'])
+            rate = ''
+            new_record = Event(title, location, description, today, time, event_rsvp, rate, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -202,16 +203,20 @@ def view_event(event_id):
     else:
         return redirect(url_for('login'))
 
-@app.route('/events/rate/<event_id>')
+
+@app.route('/events/view/<event_id>/rate',  methods=['GET', 'POST'])
 def rate_event(event_id):
     if session.get('user'):
-        my_event = db.session.query(Event).filter_by(id=event_id).one()
-        return render_template('rate.html', event=my_event, user=session['user'])
+        if request.method == 'POST':
+            my_event = db.session.query(Event).filter_by(id=event_id)
+            my_event.rate = request.form['star']
+
+            return redirect(url_for('list_events'))
+        else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+            return render_template('rate.html', event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
-
-
-
 
 
 @app.route('/logout')
