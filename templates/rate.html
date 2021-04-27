@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<nav>
+  <a href="{{ url_for('home') }}"> Return To Home</a>||
+  <a href="{{ url_for('list_events')}}">My Events</a>||
+  <a href="{{ url_for('new_event')}}"> Add Event</a>||
+  <a href="{{ url_for('logout') }}">Logout</a>
+</nav>
+<header>
+  <h1>Rating (Select star amount):</h1>
+  <hr/>
+</header>
+
+<body>
+  <main>
+    <form>
+    <div class="stars">
+    <label for="star1"></label>
+    <input type="radio" id="star1" name="star">
+    <label for="star2"></label>
+    <input type="radio" id="star2" name="star">
+    <label for="star3"></label>
+    <input type="radio" id="star3" name="star">
+    <label for="star4"></label>
+    <input type="radio" id="star4" name="star">
+    <label for="star5"></label>
+    <input type="radio" id="star5" name="star">
+    </div>
+
+    <label for="feedback">We'd love your feedback!</label><br><br>
+    <textarea rows="4" cols="18" name="feedbacktext">
+      
+    </textarea><br><br>
+    <input type="submit" value="submit"/>
+  </form>
+  </main>
+</body>
+</html>
