@@ -202,6 +202,17 @@ def view_event(event_id):
     else:
         return redirect(url_for('login'))
 
+@app.route('/events/rate/<event_id>')
+def rate_event(event_id):
+    if session.get('user'):
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+        return render_template('rate.html', event=my_event, user=session['user'])
+    else:
+        return redirect(url_for('login'))
+
+
+
+
 
 @app.route('/logout')
 def logout():
@@ -216,3 +227,4 @@ app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), de
 # http://127.0.0.1:5000/home
 # http://127.0.0.1:5000/register
 # http://127.0.0.1:5000/login
+# http://127.0.0.1:5000/rate
