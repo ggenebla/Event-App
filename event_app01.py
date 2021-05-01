@@ -18,7 +18,7 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 
 # disables signalling application every time change is made
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SECRET_KEY'] = 'SE3155'
 
@@ -29,7 +29,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-
+@app.route('/')
 @app.route('/home')
 def home():
     if session.get('user'):
@@ -200,24 +200,23 @@ def view_event(event_id):
     if session.get('user'):
         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-#        form = CommentForm()
+        #        form = CommentForm()
         return render_template('viewEvent.html', event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
 
 
-@app.route('/events/view/<event_id>/rate',  methods=['GET', 'POST'])
+@app.route('/events/view/<event_id>/rate', methods=['GET', 'POST'])
 def rate_event(event_id):
     if session.get('user'):
         if request.method == 'POST':
             my_event = db.session.query(Event).filter_by(id=event_id)
             my_event.rating = request.form.get('star')
-            
 
             return redirect(url_for('list_events'))
         else:
             my_event = db.session.query(Event).filter_by(id=event_id).one()
-            return render_template('rate.html', event=my_event, user=session['user'])
+            return render_template('rate.html', event=my_event, rating=my_event.rating,  user=session['user'])
     else:
         return redirect(url_for('login'))
 

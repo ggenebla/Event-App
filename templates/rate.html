@@ -13,20 +13,22 @@
 </header>
 <body>
   <main>
-    <form action="rate" method="post">
-        <div class="star text-center"> 
-            <input type="radio" name="star" value="5" id="star5"><label for="star5">&#x2606</label> 
-            <input type="radio" name="star" value="4" id="star2"><label for="star4">&#x2606</label> 
-            <input type="radio" name="star" value="3" id="star3"><label for="star3">&#x2606</label>  
-            <input type="radio" name="star" value="2" id="star2"><label for="star2">&#x2606</label> 
-            <input type="radio" name="star" value="1" id="star1"><label for="star1">&#x2606</label>
+    <div class="container">
+        <form action="rate" method="post">
+            <div class="star text-center"> 
+                <input type="radio" name="star" value="5" id="star5"><label for="star5">&#x2606</label> 
+                <input type="radio" name="star" value="4" id="star2"><label for="star4">&#x2606</label> 
+                <input type="radio" name="star" value="3" id="star3"><label for="star3">&#x2606</label>  
+                <input type="radio" name="star" value="2" id="star2"><label for="star2">&#x2606</label> 
+                <input type="radio" name="star" value="1" id="star1"><label for="star1">&#x2606</label>
+            </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary text-center">Rate Event</button>
+        </div>
     </div>
     <div class="text-center">
-        <button type="submit" class="btn btn-primary text-center">Rate Event</button>
+        <h2> You have rated this event {{ event.rating }}</h2>
     </div>
-
-    <p> You have rated this event {{ event.rating }}</p>
-
 
   </form>
   </main>
