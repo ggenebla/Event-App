@@ -5,12 +5,14 @@ from flask import render_template
 from flask import session
 from flask import request
 from flask import redirect, url_for
+from flask_bootstrap import Bootstrap
 from database import db
 from models import User as User
 from models import Event as Event
 from forms import RegisterForm, LoginForm
 
 app = Flask(__name__)
+Bootstrap(app)
 
 # creates file called 'note_app_data.db' in root directory
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
@@ -90,16 +92,16 @@ def new_event():
     # check method used for request
     if session.get('user'):
         if request.method == 'POST':
-            title = request.form['title']
-            location = request.form['location']
-            description = request.form['description']
-            today = request.form['date']
+            title = request.form.get('title')
+            location = request.form.get('location')
+            description = request.form.get('description')
+            today = request.form.get('date')
             # today = today.strftime("%m-%d-%y")
-            time = request.form['time']
+            time = request.form.get('time')
             # time = time.strftime("%H:%M")
-            event_rsvp = request.form['rsvp']
-            rate = ''
-            new_record = Event(title, location, description, today, time, event_rsvp, rate, session['user_id'])
+            event_rsvp = request.form.get('rsvp')
+            rating = None
+            new_record = Event(title, location, description, today, time, event_rsvp, rating, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -110,7 +112,7 @@ def new_event():
         return redirect(url_for('login'))
 
 
-@app.route('/events/delete/<event_id>', methods=['POST'])
+@app.route('/events/delete/<event_id>', methods=['POST', 'GET'])
 def delete_event(event_id):
     if session.get('user'):
         my_event = db.session.query(Event).filter_by(id=event_id).one()
@@ -209,7 +211,8 @@ def rate_event(event_id):
     if session.get('user'):
         if request.method == 'POST':
             my_event = db.session.query(Event).filter_by(id=event_id)
-            my_event.rate = request.form['star']
+            my_event.rating = request.form.get('star')
+            
 
             return redirect(url_for('list_events'))
         else:
