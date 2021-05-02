@@ -8,20 +8,20 @@ class Event(db.Model):
     location = db.Column("location", db.String(200))
     description = db.Column("description", db.String(100))
     date = db.Column("date", db.String(50))
-    time = db.Column("time", db.String(50))
+    time = db.Column("time", db.String(10))
     rsvp = db.Column("rsvp", db.String(10))
-    rating = db.Column("rate", db.String(10))
+    rate = db.Column("rate", db.Integer)
     # creates a foreign key; referencing the id variable in the User class
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self, title, location, description, date, time, rsvp, rating, user_id):
+    def __init__(self, title, location, description, date, time, rsvp, rate, user_id):
         self.title = title
         self.location = location
         self.description = description
         self.date = date
         self.time = time
         self.rsvp = rsvp
-        self.rating = rating
+        self.rate = rate
         self.user_id = user_id
 
 

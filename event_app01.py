@@ -29,6 +29,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -100,8 +101,8 @@ def new_event():
             time = request.form.get('time')
             # time = time.strftime("%H:%M")
             event_rsvp = request.form.get('rsvp')
-            rating = None
-            new_record = Event(title, location, description, today, time, event_rsvp, rating, session['user_id'])
+            rate = None
+            new_record = Event(title, location, description, today, time, event_rsvp, rate, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -210,13 +211,17 @@ def view_event(event_id):
 def rate_event(event_id):
     if session.get('user'):
         if request.method == 'POST':
-            my_event = db.session.query(Event).filter_by(id=event_id)
-            my_event.rating = request.form.get('star')
+            my_event = Event.query.filter_by(id=event_id).first()
+            rate = request.form.get('star')
+            my_event.rate = rate
+            db.session.commit()
+
+            print(str(my_event.rate))
 
             return redirect(url_for('list_events'))
         else:
             my_event = db.session.query(Event).filter_by(id=event_id).one()
-            return render_template('rate.html', event=my_event, rating=my_event.rating,  user=session['user'])
+            return render_template('rate.html', event=my_event,  user=session['user'])
     else:
         return redirect(url_for('login'))
 
