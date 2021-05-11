@@ -225,6 +225,19 @@ def rate_event(event_id):
     else:
         return redirect(url_for('login'))
 
+@app.route('/events/view/<event_id>')
+def search_event(event_id):
+    if session.get('user'):
+        title = request.form['title']
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+        my_event.title = title
+        #find event title
+        db.session.find(my_event.title)
+        #once event is found, display view event page
+        return render_template('viewEvent.html', event=my_event, user=session['user'])
+
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
