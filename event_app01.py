@@ -1,5 +1,7 @@
 import os
 import bcrypt
+import sqlalchemy
+from sqlalchemy import desc
 from flask import Flask
 from flask import render_template
 from flask import session
@@ -125,35 +127,35 @@ def delete_event(event_id):
         return redirect(url_for('login'))
 
 
-@app.route('/events/rsvp/<event_id>', methods=['GET', 'POST'])
-def rsvp(event_id):
-    if session.get('user'):
-        if request.method == 'POST':
-            title = request.form['title']
-            location = request.form['location']
-            description = request.form['description']
-            today = request.form['date']
-            # today = today.strftime("%m-%d-%y")
-            time = request.form['time']
-            # time = time.strftime("%H:%M")
-            event = db.session.query(Event).filter_by(id=event_id).one()
-            event_rsvp = request.form['rsvp']
-            event.title = title
-            event.location = location
-            event.description = description
-            event.date = today
-            event.time = time
-            event.rsvp = event_rsvp
-            db.session.add(event)
-            db.session.commit()
-
-            return redirect(url_for('list_events'))
-        else:
-            my_event = db.session.query(Event).filter_by(id=event_id).one()
-
-        return render_template("editEvent.html", event=my_event, user=session['user'])
-    else:
-        return redirect(url_for('login'))
+#@app.route('/events/rsvp/<event_id>', methods=['GET', 'POST'])
+#def rsvp(event_id):
+#    if session.get('user'):
+#        if request.method == 'POST':
+#            title = request.form['title']
+#            location = request.form['location']
+#            description = request.form['description']
+#            today = request.form['date']
+#            # today = today.strftime("%m-%d-%y")
+#            time = request.form['time']
+#            # time = time.strftime("%H:%M")
+#            event = db.session.query(Event).filter_by(id=event_id).one()
+#            event_rsvp = request.form['rsvp']
+#            event.title = title
+#            event.location = location
+#            event.description = description
+#            event.date = today
+#            event.time = time
+#            event.rsvp = event_rsvp
+#            db.session.add(event)
+#            db.session.commit()
+#
+#            return redirect(url_for('list_events'))
+#        else:
+#            my_event = db.session.query(Event).filter_by(id=event_id).one()
+#
+#        return render_template("editEvent.html", event=my_event, user=session['user'])
+#    else:
+#        return redirect(url_for('login'))
 
 
 @app.route('/events/edit/<event_id>', methods=['GET', 'POST'])
@@ -216,8 +218,6 @@ def rate_event(event_id):
             my_event.rate = rate
             db.session.commit()
 
-            print(str(my_event.rate))
-
             return redirect(url_for('list_events'))
         else:
             my_event = db.session.query(Event).filter_by(id=event_id).one()
@@ -243,7 +243,20 @@ def search_event(event_id):
         return redirect(url_for('login'))
 
 
-@app.route('events/<event_id>/like')
+@app.route('/sort', methods=['GET', 'POST'])
+def sort_events(event_id):
+    if session.get('user'):
+        if request.method == 'POST':
+            my_events = db.session.query(Event).filter_by(id=event_id).all()
+            results = sorted(my_events, key=sort_events)
+            print(results)
+
+        return render_template('viewEvent.html', events=my_events, user=session['user'])
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/events/<event_id>/like')
 def liking_event(event_id):
     if session.get('user'):
         if request.method == 'POST':
