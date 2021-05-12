@@ -59,3 +59,12 @@ class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[Length(min=1)])
 
     submit = SubmitField('Add Comment')
+    
+    
+class SearchForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    event_title = StringField('Search course', validators=[DataRequired(), Length(max=60)])
+
+    submit = SubmitField('Submit')
