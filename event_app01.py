@@ -229,13 +229,15 @@ def rate_event(event_id):
 @app.route('/events/view/<event_id>')
 def search_event(event_id):
     if session.get('user'):
-        title = request.form['title']
+        searchForm = SearchForm()
+        events = db.session.query(Event)
+
+        if searchForm.validate_on_submit():
+            events = events.filter(db.session.name(Event).like('%' + searchForm.event_title.data + '%'))
+        #events = events.order_by(db.session.query(Event)).all()
         my_event = db.session.query(Event).filter_by(id=event_id).one()
-        my_event.title = title
-        # find event title
-        db.session.find(my_event.title)
-        # once event is found, display view event page
-        return render_template('viewEvent.html', event=my_event, user=session['user'])
+
+        return render_template('home.html', events=my_event, user=session['user'])
 
     else:
         return redirect(url_for('login'))
