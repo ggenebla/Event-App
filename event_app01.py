@@ -221,9 +221,10 @@ def rate_event(event_id):
             return redirect(url_for('list_events'))
         else:
             my_event = db.session.query(Event).filter_by(id=event_id).one()
-            return render_template('rate.html', event=my_event,  user=session['user'])
+            return render_template('rate.html', event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
+
 
 @app.route('/events/view/<event_id>')
 def search_event(event_id):
@@ -231,13 +232,33 @@ def search_event(event_id):
         title = request.form['title']
         my_event = db.session.query(Event).filter_by(id=event_id).one()
         my_event.title = title
-        #find event title
+        # find event title
         db.session.find(my_event.title)
-        #once event is found, display view event page
+        # once event is found, display view event page
         return render_template('viewEvent.html', event=my_event, user=session['user'])
 
     else:
         return redirect(url_for('login'))
+
+
+@app.route('events/<event_id>/like')
+def liking_event(event_id):
+    if session.get('user'):
+        if request.method == 'POST':
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+            like = request.form.get('thumbs up')
+            my_event.like = like
+            db.session.commit()
+
+            print(str(my_event.like))
+
+            return redirect(url_for('list_events'))
+        else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+            return render_template('like.html', event=my_event, user=session['user'])
+    else:
+        return redirect(url_for('login'))
+
 
 @app.route('/logout')
 def logout():
